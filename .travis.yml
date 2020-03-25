@@ -1,5 +1,16 @@
 language: node_js
 node_js:
-  - 12.14.1
+  - node
+cache:
+  apt: true
+  directories:
+    - node_modules
+env:
+  - SERVER_IP_ADDRESS=23.105.194.254
+addons:
+  ssh_known_hosts:
+    - 23.105.194.254
 script:
-  - npm run ci
+  - npm install
+after_script:
+  - npm run build
