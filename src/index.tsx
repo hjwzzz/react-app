@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "@/index.less";
+import "index.less";
 import App from "./App";
 import "normalize.css";
 import * as serviceWorker from "./serviceWorker";

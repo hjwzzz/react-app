@@ -67,8 +67,8 @@ module.exports = {
       style: true
     }),
     addLessLoader({
-      javascriptEnabled: true
-      // modifyVars: { "@primary-color": "#cccccc" } // 这里不注释掉，那你的无法修改主题色primary-color 这里很坑的 要注意！
+      javascriptEnabled: true,
+      modifyVars: { "@brand-primary": "#b3281e" }
     }),
     pxToVw(),
     addWebpackAlias({

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Index.less";
+import "./index.less";
 import { List, InputItem, Toast } from "antd-mobile";
 import { createForm } from "rc-form";
 import axios from "axios";
@@ -24,7 +24,7 @@ export function Loginform(props: any) {
   console.log(props);
   const { getFieldProps } = props.form;
   const getRes = async () => {
-    return await axios.get("http://api.hdafa.xyz:8888/search", {
+    return await axios.get("http://localhost:3000/search", {
       params: {
         keywords: "拥抱"
       }
@@ -43,7 +43,7 @@ export function Loginform(props: any) {
         moneyKeyboardWrapProps={moneyKeyboardWrapProps}
         onFocus={toast}
       >
-        手机号码
+        手机号码{state.type}
       </InputItem>
       <InputItem
         {...getFieldProps("input1")}
