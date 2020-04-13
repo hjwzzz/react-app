@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { TabBar } from "antd-mobile";
 import Icon from "../icon/index";
-import { RouteChildrenProps, useRouteMatch } from "react-router-dom";
+import { RouteChildrenProps, useRouteMatch, Route } from "react-router-dom";
+import Recommend from "view/Index/Recommend";
+import Me from "view/Index/Me";
+import Account from "view/Index/Account";
+import "./index.less";
 
 type Props = RouteChildrenProps;
 
@@ -10,24 +14,27 @@ export default (props: Props) => {
     {
       name: "发现",
       icon: "icon-faxian",
-      path: "/recommend"
+      path: "/recommend",
+      component: Recommend,
     },
     {
       name: "我的",
       icon: "icon-wode",
-      path: "/me"
+      path: "/me",
+      component: Me,
     },
     {
       name: "账号",
       icon: "icon-zhanghaoguanli",
-      path: "/account"
-    }
+      path: "/account",
+      component: Account,
+    },
   ]);
-  let match = useRouteMatch();
+  let { path } = useRouteMatch();
   const [selectTabPath, setSelectTabPath] = useState(TabBarList[0].path);
-  const selectTab = (path: string) => {
-    setSelectTabPath(path);
-    props.history.push(`${path}`);
+  const selectTab = (routePath: string) => {
+    setSelectTabPath(routePath);
+    props.history.push(`${path}${routePath}`);
   };
   return (
     <TabBar
@@ -35,7 +42,7 @@ export default (props: Props) => {
       unselectedTintColor="#ccc"
       barTintColor="#232323"
     >
-      {TabBarList.map(item => (
+      {TabBarList.map((item) => (
         <TabBar.Item
           key={item.icon}
           icon={<Icon icon={item.icon}></Icon>}
@@ -45,7 +52,11 @@ export default (props: Props) => {
           onPress={() => {
             selectTab(item.path);
           }}
-        ></TabBar.Item>
+        >
+          <Route path={`${path}${item.path}`}>
+            <item.component />
+          </Route>
+        </TabBar.Item>
       ))}
     </TabBar>
   );
