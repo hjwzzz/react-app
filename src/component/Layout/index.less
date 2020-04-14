@@ -1,3 +1,13 @@
 .am-tab-bar-item {
   padding: 50px 20px 0;
 }
+
+
+.am-tab-bar-bar {
+  height: calc(100px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+
+  &:before {
+    background-color: inherit !important;
+  }
+}

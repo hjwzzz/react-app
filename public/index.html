@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, viewport-fit=cover",
+    initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
     <link
       rel="stylesheet"
       href="//at.alicdn.com/t/font_1723263_atg0288c1hc.css"
@@ -16,7 +14,7 @@
       if ("addEventListener" in document) {
         document.addEventListener(
           "DOMContentLoaded",
-          function() {
+          function () {
             FastClick.attach(document.body);
           },
           false
@@ -31,9 +29,9 @@
             "script>"
         );
       }
-      window.onload = function() {
+      window.onload = function () {
         window.viewportUnitsBuggyfill.init({
-          hacks: window.viewportUnitsBuggyfillHacks
+          hacks: window.viewportUnitsBuggyfillHacks,
         });
       };
     </script>

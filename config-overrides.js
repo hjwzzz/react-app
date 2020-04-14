@@ -3,19 +3,19 @@ const {
   fixBabelImports,
   addLessLoader,
   overrideDevServer,
-  addWebpackAlias
+  addWebpackAlias,
 } = require("customize-cra");
 // const rewireLess = require("react-app-rewire-less");
 const path = require("path");
-const pxToVw = () => config => {
+const pxToVw = () => (config) => {
   require("react-app-rewire-postcss")(config, {
-    plugins: loader => [
+    plugins: (loader) => [
       require("postcss-flexbugs-fixes"),
       require("postcss-preset-env")({
         autoprefixer: {
-          flexbox: "no-2009"
+          flexbox: "no-2009",
         },
-        stage: 3
+        stage: 3,
       }),
       require("postcss-aspect-ratio-mini")({}),
       require("postcss-px-to-viewport")({
@@ -26,36 +26,36 @@ const pxToVw = () => config => {
         selectorBlackList: [".ignore", ".hairlines"], // (Array) The selectors to ignore and leave as px.
         minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
         mediaQuery: false, // (Boolean) Allow px to be converted in media queries.
-        exclude: /(\/|\\)(node_modules)(\/|\\)/ //忽略第三方UI库样式
+        exclude: /(\/|\\)(node_modules)(\/|\\)/, //忽略第三方UI库样式
       }),
       require("postcss-write-svg")({
-        utf8: false
+        utf8: false,
       }),
       require("postcss-viewport-units")({}),
       require("cssnano")({
         preset: "advanced",
         autoprefixer: false,
-        "postcss-zindex": false
-      })
-    ]
+        "postcss-zindex": false,
+      }),
+    ],
   });
   return config;
 };
 // 跨域配置
-const devServerConfig = () => config => {
+const devServerConfig = () => (config) => {
   return {
     ...config,
     // 服务开启gzip
     compress: true,
     proxy: {
       "/api": {
-        target: "http://tmgt.91fd.com:15845",
+        target: "http://23.105.194.254:3000",
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "/api"
-        }
-      }
-    }
+          "^/api": "/",
+        },
+      },
+    },
   };
 };
 
@@ -64,16 +64,16 @@ module.exports = {
     fixBabelImports("import", {
       libraryName: "antd-mobile",
       libraryDirectory: "es",
-      style: true
+      style: true,
     }),
     addLessLoader({
       javascriptEnabled: true,
-      modifyVars: { "@brand-primary": "#b3281e" }
+      modifyVars: { "@brand-primary": "#b3281e" },
     }),
     pxToVw(),
     addWebpackAlias({
-      "@": path.resolve(__dirname, "src")
+      "@": path.resolve(__dirname, "src"),
     })
   ),
-  devServer: overrideDevServer(devServerConfig())
+  devServer: overrideDevServer(devServerConfig()),
 };

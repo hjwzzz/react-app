@@ -3,7 +3,8 @@ import Axios, { AxiosRequestConfig } from "axios";
 
 Axios.defaults.headers.post["Content-Type"] = "application/json";
 
-Axios.defaults.baseURL = "http://23.105.194.254:3000/";
+// Axios.defaults.baseURL = "http://23.105.194.254:3000/";
+Axios.defaults.baseURL = "/api";
 
 const request = async ({
   url,
