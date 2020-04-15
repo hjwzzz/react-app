@@ -21,7 +21,7 @@ const Nav = (): JSX.Element => {
   });
   useEffect((): (() => void) => {
     const Interval = setInterval(() => {
-      // dispatch();
+      dispatch();
     }, 1000);
     return (): void => clearInterval(Interval);
   }, []);

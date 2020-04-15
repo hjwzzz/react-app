@@ -1,25 +1,31 @@
 import React, { useEffect, useState, Fragment } from "react";
 import request from "./../../../request/index";
 import "./index.less";
+import { AxiosResponse } from "axios";
 
-interface DiscoverListItem {
+interface PlayListItem {
   name: string;
   id: string;
   coverImgUrl: string;
 }
 
-const Recommend = () => {
-  const [discoverList, setDiscoverList] = useState<DiscoverListItem[]>([]);
+interface GetListRes {
+  playlists: PlayListItem[];
+}
+
+const getList = async (): Promise<AxiosResponse<GetListRes>> => {
+  return await request({
+    url: "top/playlist",
+    params: {
+      limit: 5,
+      order: "hot",
+    },
+  });
+};
+
+const Recommend = (): JSX.Element => {
+  const [discoverList, setDiscoverList] = useState<PlayListItem[]>([]);
   useEffect(() => {
-    const getList = async () => {
-      return await request({
-        url: "top/playlist",
-        params: {
-          limit: 5,
-          order: "hot",
-        },
-      });
-    };
     getList().then((res) => {
       setDiscoverList(res.data.playlists);
     });
