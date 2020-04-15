@@ -1,10 +1,30 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect, useReducer } from "react";
 import Icon from "./../../component/icon";
+import PlayStatusBtn from "./PlayStatusBtn/";
 import "./index.less";
 import { CSSTransition } from "react-transition-group";
 
-const Nav = () => {
+interface ReducerState {
+  progress: number;
+}
+
+function setProgress(state: ReducerState): ReducerState {
+  return {
+    progress: state.progress + 1,
+  };
+}
+
+const Nav = (): JSX.Element => {
   const [searchPageStatus, SetSearchPageStatus] = useState(false);
+  const [state, dispatch] = useReducer(setProgress, {
+    progress: 0,
+  });
+  useEffect((): (() => void) => {
+    const Interval = setInterval(() => {
+      // dispatch();
+    }, 1000);
+    return (): void => clearInterval(Interval);
+  }, []);
   return (
     <Fragment>
       <div className="nav">
@@ -13,17 +33,20 @@ const Nav = () => {
         </div>
         <div
           className="nav-content"
-          onClick={() => SetSearchPageStatus(true)}
+          onClick={(): void => SetSearchPageStatus(true)}
         ></div>
-        <div className="nav-right" onClick={() => SetSearchPageStatus(false)}>
-          <div>播放</div>
+        <div
+          className="nav-right"
+          onClick={(): void => SetSearchPageStatus(false)}
+        >
+          <PlayStatusBtn progress={state.progress}></PlayStatusBtn>
         </div>
       </div>
       <CSSTransition
         in={searchPageStatus}
         unmountOnExit
         timeout={1000}
-        classNames="alert"
+        classNames="search-page-animation"
       >
         <div className="search-page"></div>
       </CSSTransition>
