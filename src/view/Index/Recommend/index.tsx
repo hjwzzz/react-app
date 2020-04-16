@@ -1,32 +1,14 @@
 import React, { useEffect, useState, Fragment } from 'react'
-import request from './../../../request/index'
+import { TopPlayListItem, getTopPlayListItem } from 'request/recommend'
 import './index.less'
-import { AxiosResponse } from 'axios'
+import { RouteComponentProps } from 'react-router-dom'
 
-interface PlayListItem {
-  name: string
-  id: string
-  coverImgUrl: string
-}
+type Props = RouteComponentProps
 
-interface GetListRes {
-  playlists: PlayListItem[]
-}
-
-const getList = async (): Promise<AxiosResponse<GetListRes>> => {
-  return await request({
-    url: 'top/playlist',
-    params: {
-      limit: 5,
-      order: 'hot',
-    },
-  })
-}
-
-const Recommend = (): JSX.Element => {
-  const [discoverList, setDiscoverList] = useState<PlayListItem[]>([])
+const Recommend = (props: Props): JSX.Element => {
+  const [discoverList, setDiscoverList] = useState<TopPlayListItem[]>([])
   useEffect(() => {
-    getList().then((res) => {
+    getTopPlayListItem().then((res) => {
       setDiscoverList(res.data.playlists)
     })
   }, [])
@@ -39,7 +21,7 @@ const Recommend = (): JSX.Element => {
       </div>
       <div className="discover-list">
         {discoverList.map((item) => (
-          <div className="discover-list-item" key={item.id}>
+          <div className="discover-list-item" onClick={() => props.history.push(`../playList?id=${item.id}`)} key={item.id}>
             <img className="discover-list-item-img" alt={item.name} src={item.coverImgUrl} />
             <p className="discover-list-item-name">{item.name}</p>
           </div>

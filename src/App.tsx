@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import 'App.less'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import Layout from 'component/Layout'
+import Player from 'view/Player'
+import PlayList from 'view/PlayList'
 import { subcount, loginByCellphone } from 'request/login'
 
 const getSubcount = async (): Promise<void> => {
@@ -23,8 +25,12 @@ function App(): JSX.Element {
   }, [])
   return (
     <Router>
-      <Redirect path="/" to="/index/recommend"></Redirect>
-      <Route path="/index" render={(props): JSX.Element => <Layout {...props} />}></Route>
+      <Switch>
+        <Redirect path="/" exact to="/index/recommend"></Redirect>
+        <Route path="/index/:name" component={Layout}></Route>
+        <Route path="/player" exact component={Player}></Route>
+        <Route path="/playList" exact component={PlayList}></Route>
+      </Switch>
     </Router>
   )
 }

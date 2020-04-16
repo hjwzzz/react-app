@@ -1,0 +1,33 @@
+.me {
+  position: relative;
+  &-play-list {
+    overflow-x: scroll;
+    white-space: nowrap;
+    padding-top: 80px;
+    &-title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #fff;
+      font-size: 48px;
+    }
+    &-item {
+      display: inline-block;
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &-content {
+        position: relative;
+        width: 200px;
+        height: 300px;
+        border-radius: 20px;
+        background-color: #fff;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
