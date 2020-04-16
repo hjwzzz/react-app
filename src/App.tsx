@@ -5,7 +5,18 @@ import Layout from "component/Layout";
 import { AxiosResponse } from "axios";
 import request from "./request";
 
-const loginByCellphone = async (): Promise<AxiosResponse<any>> => {
+interface LoginByCellphoneRes {
+  code: number;
+}
+
+interface SubcountRes {
+  code: number;
+  [key: string]: string | number;
+}
+
+const loginByCellphone = async (): Promise<
+  AxiosResponse<LoginByCellphoneRes>
+> => {
   return await request({
     url: "login/cellphone",
     params: {
@@ -14,13 +25,29 @@ const loginByCellphone = async (): Promise<AxiosResponse<any>> => {
     },
   });
 };
+const subcount = async (): Promise<AxiosResponse<SubcountRes>> => {
+  return await request({
+    url: "/user/subcount",
+  });
+};
+
+const getSubcount = async (): Promise<void> => {
+  const getSubcountRes = await subcount();
+  if (getSubcountRes.data.code === 200) {
+  }
+};
+
+const getUserInfo = async (): Promise<void> => {
+  const loginByCellphoneRes = await loginByCellphone();
+  if (loginByCellphoneRes.data.code === 200) {
+    await getSubcount();
+  }
+};
 
 function App(): JSX.Element {
   useEffect(() => {
-    loginByCellphone().then((res) => {
-      console.log(res);
-    });
-  });
+    getUserInfo();
+  }, []);
   return (
     <Router>
       <Redirect path="/" to="/index/recommend"></Redirect>
