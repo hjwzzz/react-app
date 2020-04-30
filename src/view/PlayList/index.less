@@ -1,0 +1,58 @@
+.play-list {
+  padding: 10px 20px;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+
+  &-item {
+    display: flex;
+    height: 100px;
+    width: 100%;
+
+    &-desc {
+      width: 100%;
+      display: flex;
+      font-size: 30px;
+
+      &-index {
+        margin-right: 50px;
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+
+        &-top {
+          display: flex;
+          margin-bottom: 10px;
+
+          &-name {
+            margin-right: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 30px;
+            line-height: 30px;
+            flex: auto;
+          }
+
+          &-alia {
+            color: #ccc;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            flex: auto;
+          }
+        }
+
+        &-bottom {
+          color: #ccc;
+          font-weight: 100;
+          font-size: 26px;
+        }
+      }
+    }
+
+    &-handle {}
+  }
+}

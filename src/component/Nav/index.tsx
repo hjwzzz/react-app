@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useReducer } from 'react'
 import Icon from './../../component/icon'
-import PlayStatusBtn from './PlayStatusBtn/'
+import PlayIcon from '../PlayIcon'
 import './index.less'
 import { CSSTransition } from 'react-transition-group'
 import { useHistory } from 'react-router-dom'
@@ -36,7 +36,7 @@ const Nav = (): JSX.Element => {
         </div>
         <div className="nav-content" onClick={(): void => SetSearchPageStatus(true)}></div>
         <div className="nav-right" onClick={(): void => history.push('./../player')}>
-          <PlayStatusBtn progress={state.progress}></PlayStatusBtn>
+          <PlayIcon progress={state.progress}></PlayIcon>
         </div>
       </div>
       <CSSTransition in={searchPageStatus} unmountOnExit timeout={1000} classNames="search-page-animation">
